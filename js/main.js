@@ -38,4 +38,4 @@ function validateTextLength(text, max) {
 
 getRandomNumber(20, 55);
 
-validateTextLength("Текст на провреку меньше 50", 50);
+validateTextLength('Текст на провреку меньше 50', 50);
