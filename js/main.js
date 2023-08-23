@@ -28,12 +28,7 @@ function validateTextLength(text, max) {
     return false;
   }
 
-  const length = text.length;
-
-  if (length > max) {
-    return false;
-  }
-  return true;
+  return text.length <= max;
 }
 
 getRandomNumber(20, 55);
