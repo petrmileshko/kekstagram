@@ -1,4 +1,3 @@
-
 // Получение случайного числа из диапазона между min и max включительно
 function getRandomNumber(min, max) {
 
@@ -9,11 +8,11 @@ function getRandomNumber(min, max) {
   let from, till;
 
   if (min > max) {
-    from = Math.floor(max);
-    till = Math.ceil(min);
+    from = Math.floor(Math.abs(max));
+    till = Math.ceil(Math.abs(min));
   } else {
-    from = Math.ceil(min);
-    till = Math.floor(max);
+    from = Math.ceil(Math.abs(min));
+    till = Math.floor(Math.abs(max));
   }
   return Math.floor(Math.random() * (till - from + 1)) + from;
 }
