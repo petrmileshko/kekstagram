@@ -1,4 +1,4 @@
-function randomIterval(min, max) {
+function getRandom(min, max) {
 
   if (min === max) {
     return min;
@@ -36,6 +36,6 @@ function validateTextLength(text, max) {
   return true;
 }
 
-randomIterval(20, 55);
+getRandom(20, 55);
 
 validateTextLength("Текст на провреку меньше 50", 50);
