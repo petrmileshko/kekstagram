@@ -18,3 +18,24 @@ function randomIterval(min, max) {
 }
 
 
+function validateTextLength(text, max) {
+  if (text === '' || text === null || text === undefined || max < 1) {
+    return false;
+  }
+
+  if (typeof (text) !== 'string') {
+    return false;
+  }
+
+  const length = text.length;
+
+  if (length > max) {
+    return false;
+  }
+
+  return true;
+}
+
+randomIterval(20, 55);
+
+validateTextLength("Текст на провреку меньше 50", 50);
