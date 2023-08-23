@@ -1,4 +1,4 @@
-function getRandom(min, max) {
+function getRandomNumber(min, max) {
 
   if (min === max) {
     return min;
@@ -36,6 +36,6 @@ function validateTextLength(text, max) {
   return true;
 }
 
-getRandom(20, 55);
+getRandomNumber(20, 55);
 
 validateTextLength("Текст на провреку меньше 50", 50);
