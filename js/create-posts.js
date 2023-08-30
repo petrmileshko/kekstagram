@@ -1,12 +1,10 @@
 import {
-  getRandomNumber
+  getRandomNumber,
+  getRandomElement
 } from './utils.js';
 /*
 	Генерация данных для задания
 */
-const MAX_COMMENTS = 100;
-const MAX_COMMENTS_PER_POST = 5;
-
 const NAMES = [
   'Василий',
   'Иван',
@@ -36,47 +34,24 @@ const descriptions = [
   'Норм',
 ];
 
-const idUsed = [getRandomNumber(1, MAX_COMMENTS)];
+const getComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+  message: getRandomElement(COMMENTS),
+  name: getRandomElement(NAMES)
+});
 
-function getIdComment() {
-  const newId = idUsed[idUsed.length - 1] + 1;
-  idUsed.push(newId);
-  return newId;
-}
+const createPost = (index) => ({
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: getRandomElement(descriptions),
+  likes: getRandomNumber(15, 200),
+  comments: Array.from({
+    length: getRandomNumber(0, 6)
+  }, (_, commentIndex) => getComment(commentIndex + 1))
+});
 
-function getComment() {
-  return {
-    id: getIdComment(),
-    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-    message: COMMENTS[getRandomNumber(0, COMMENTS.length - 1)],
-    name: NAMES[getRandomNumber(0, NAMES.length - 1)]
-  };
-}
-
-function getPostComments() {
-  const comments = [];
-  const numberComments = getRandomNumber(1, MAX_COMMENTS_PER_POST);
-  for (let index = 0; index < numberComments; index++) {
-    comments.push(getComment());
-  }
-
-  return comments;
-}
-
-function createPosts(maxPosts) {
-  const posts = [];
-
-  for (let index = 0; index < maxPosts; index++) {
-    posts.push({
-      id: index + 1,
-      url: `photos/${index + 1}.jpg`,
-      description: descriptions[getRandomNumber(0, descriptions.length - 1)],
-      likes: getRandomNumber(15, 200),
-      comments: getPostComments()
-    });
-  }
-  return posts;
-}
+const createPosts = (numberPosts) => Array.from({length: numberPosts}, (_, indexPost) => createPost(indexPost + 1));
 
 export {
   createPosts

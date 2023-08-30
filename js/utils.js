@@ -17,7 +17,12 @@ function validateTextLength(text, max) {
   return text.length <= max;
 }
 
+function getRandomElement(elements) {
+  return elements[ getRandomNumber(0, elements.length - 1)];
+}
+
 export {
   getRandomNumber,
-  validateTextLength
+  validateTextLength,
+  getRandomElement
 };
