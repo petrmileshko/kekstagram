@@ -3,8 +3,7 @@ import {
 } from './create-posts.js'; // В качестве параметра принимает значение - количество постов, которое необходимо сгенерировать
 
 
-
-function renderPictures(numberPictures) {
+const renderPictures = (numberPictures) => {
 
   const picturesContainer = document.querySelector('.pictures');
   const picturesAll = createPosts(numberPictures);
@@ -24,7 +23,15 @@ function renderPictures(numberPictures) {
   });
 
   picturesContainer.append(templateContainer);
-}
+
+  return function () {
+    return {
+      links: picturesContainer.querySelectorAll('a.picture'),
+      elements: picturesAll
+    };
+  };
+};
+
 
 export {
   renderPictures
