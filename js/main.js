@@ -4,6 +4,7 @@ import {
 import {
   openPicture
 } from './open-picture.js'; // В качестве параметра принимает значение - объект с элементами ссылок на посты и массив объектов постов
+import './upload-picture.js'; // Инициализация загрузки изображений
 
 const getAllPictures = renderPictures(25);
 
