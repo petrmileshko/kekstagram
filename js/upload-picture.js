@@ -5,6 +5,7 @@ import {
 
 const modal = document.querySelector('.img-upload__overlay');
 const closeButton = modal.querySelector('#upload-cancel');
+const uploadElement = document.querySelector('#upload-file');
 
 function onUploadFileClick(e) {
   e.preventDefault();
@@ -42,6 +43,7 @@ function openModal() {
 
 function closeModal() {
   modal.classList.add('hidden');
+  uploadElement.value = '';
   document.
     removeEventListener('keydown', onPopUpEscDown);
   closeButton.
@@ -50,6 +52,4 @@ function closeModal() {
     removeEventListener('keydown', onCloseButtonEnterDown);
 }
 
-document.
-  querySelector('#upload-file').
-  addEventListener('click', onUploadFileClick);
+uploadElement.addEventListener('change', onUploadFileClick);
