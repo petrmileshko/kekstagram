@@ -18,11 +18,21 @@ function validateTextLength(text, max) {
 }
 
 function getRandomElement(elements) {
-  return elements[ getRandomNumber(0, elements.length - 1)];
+  return elements[getRandomNumber(0, elements.length - 1)];
+}
+
+function isEscape(key) {
+  return key === 'Escape';
+}
+
+function isEnter(key) {
+  return key === 'Enter';
 }
 
 export {
   getRandomNumber,
   validateTextLength,
-  getRandomElement
+  getRandomElement,
+  isEscape,
+  isEnter
 };
