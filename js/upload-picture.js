@@ -5,7 +5,8 @@ import {
   hasUniqueTags,
   isFirstSymbol,
   isLengthLess,
-  isLengthMore
+  isLengthMore,
+  isElemetsFocused
 } from './utils.js'; // Один параметр с кодом клавиши из свойства объекта Event.key
 
 import {
@@ -18,6 +19,21 @@ const uploadElement = document.querySelector('#upload-file');
 const hashtags = document.querySelector('[name="hashtags"]');
 const description = document.querySelector('[name="description"]');
 const form = document.querySelector('#upload-select-image');
+
+/**
+ * Подключаем валидацию формы
+ */
+const MIN_HASH_LENGTH = 2;
+const MAX_HASH_LENGTH = 20;
+const MAX_HASHTAGS = 5;
+
+const initValidation = userForm(form, {
+  classTo: 'img-upload__element',
+  errorTextParent: 'img-upload__element',
+  errorTextClass: 'img-upload__text--error'
+});
+
+const validator = initValidation();
 
 /**
   добавляем callback функции для обработчиков
@@ -33,7 +49,7 @@ function onCloseButtonClick(e) {
 }
 
 function onPopUpEscDown(e) {
-  if (isEscape(e.key)) {
+  if (isEscape(e.key) && !isElemetsFocused([hashtags, description])) {
     e.preventDefault();
     closeModal();
   }
@@ -46,68 +62,25 @@ function onCloseButtonEnterDown(e) {
   }
 }
 
-function onHashtagsEscDown(e) {
-  if (isEscape(e.key)) {
-    e.stopPropagation();
-  }
-}
-
-function onDescriptionEscDown(e) {
-  if (isEscape(e.key)) {
-    e.stopPropagation();
-  }
-}
-
 //Функция для открытия модального окна
 function openModal() {
   modal.classList.remove('hidden'); //Показываем модальное окно с формой
   document.body.classList.add('modal-open'); //Убираем прокрутку основного экрана
-  document.
-  addEventListener('keydown', onPopUpEscDown); //Добавляем на страницу обработчик нажатия клавиши Esc по которому будет закрываться модальное окно
-  closeButton.
-  addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
-  closeButton.
-  addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
-  hashtags.
-  addEventListener('keydown', onHashtagsEscDown); //Отменяем на поле ввода хештегов, закрытие окна по нажатию клавиши Esc
-  description.
-  addEventListener('keydown', onDescriptionEscDown); //Отменяем на поле ввода описания, закрытие окна по нажатию клавиши Esc
+  document.addEventListener('keydown', onPopUpEscDown); //Добавляем на страницу обработчик нажатия клавиши Esc по которому будет закрываться модальное окно
+  closeButton.addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
+  closeButton.addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
 }
 
 //Функция для закрытия модального окна
 function closeModal() {
   modal.classList.add('hidden'); //Прячем модальное окно с формой
-  uploadElement.value = ''; //Обнуляем поля формы
-  hashtags.value = '';
-  description.value = '';
-  form.querySelector('.pristine-error').innerHTML = '';
+  form.reset(); //Обнуляем поля формы
+  validator.reset(); //Обнуляем валидацию
   document.body.classList.remove('modal-open'); //Восстанавливаем прокрутку основного экрана
-  document.
-  removeEventListener('keydown', onPopUpEscDown); //Удаляем не нужные обработчики событий в модальном окне
-  closeButton.
-  removeEventListener('click', onCloseButtonClick);
-  closeButton.
-  removeEventListener('keydown', onCloseButtonEnterDown);
-  hashtags.
-  removeEventListener('keydown', onHashtagsEscDown);
-  description.
-  removeEventListener('keydown', onDescriptionEscDown);
+  document.removeEventListener('keydown', onPopUpEscDown); //Удаляем не нужные обработчики событий в модальном окне
+  closeButton.removeEventListener('click', onCloseButtonClick);
+  closeButton.removeEventListener('keydown', onCloseButtonEnterDown);
 }
-
-/**
- * Подключаем валидацию формы
- */
-const MIN_HASH_LENGTH = 2;
-const MAX_HASH_LENGTH = 20;
-const MAX_HASHTAGS = 5;
-
-const initValidation = userForm(form, {
-  classTo: 'img-upload__element',
-  errorTextParent: 'img-upload__element',
-  errorTextClass: 'img-upload__text--error'
-}); //подключение валидации к форме
-
-const validator = initValidation();
 
 //Валидация хэштегов
 let errorMessage = '';

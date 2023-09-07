@@ -58,6 +58,11 @@ function isLengthMore(tags, length) {
   return tags.some((tag) => tag.length > length);
 }
 
+function isElemetsFocused(elements) {
+  return elements.some((element) => element === document.activeElement);
+}
+
+
 export {
   getRandomNumber,
   validateTextLength,
@@ -68,5 +73,6 @@ export {
   hasUniqueTags,
   isFirstSymbol,
   isLengthLess,
-  isLengthMore
+  isLengthMore,
+  isElemetsFocused
 };
