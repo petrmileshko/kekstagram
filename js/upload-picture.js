@@ -1,7 +1,11 @@
 import {
   isEscape,
   isEnter,
-  isHashTags
+  isHashTags,
+  hasUniqueTags,
+  isFirstSymbol,
+  isLengthLess,
+  isLengthMore
 } from './utils.js'; // Один параметр с кодом клавиши из свойства объекта Event.key
 
 import {
@@ -59,15 +63,15 @@ function openModal() {
   modal.classList.remove('hidden'); //Показываем модальное окно с формой
   document.body.classList.add('modal-open'); //Убираем прокрутку основного экрана
   document.
-    addEventListener('keydown', onPopUpEscDown); //Добавляем на страницу обработчик нажатия клавиши Esc по которому будет закрываться модальное окно
+  addEventListener('keydown', onPopUpEscDown); //Добавляем на страницу обработчик нажатия клавиши Esc по которому будет закрываться модальное окно
   closeButton.
-    addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
+  addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
   closeButton.
-    addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
+  addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
   hashtags.
-    addEventListener('keydown', onHashtagsEscDown); //Отменяем на поле ввода хештегов, закрытие окна по нажатию клавиши Esc
+  addEventListener('keydown', onHashtagsEscDown); //Отменяем на поле ввода хештегов, закрытие окна по нажатию клавиши Esc
   description.
-    addEventListener('keydown', onDescriptionEscDown); //Отменяем на поле ввода описания, закрытие окна по нажатию клавиши Esc
+  addEventListener('keydown', onDescriptionEscDown); //Отменяем на поле ввода описания, закрытие окна по нажатию клавиши Esc
 }
 
 //Функция для закрытия модального окна
@@ -76,27 +80,30 @@ function closeModal() {
   uploadElement.value = ''; //Обнуляем поля формы
   hashtags.value = '';
   description.value = '';
-  form.querySelector('.pristine-error').innerHTML='';
+  form.querySelector('.pristine-error').innerHTML = '';
   document.body.classList.remove('modal-open'); //Восстанавливаем прокрутку основного экрана
   document.
-    removeEventListener('keydown', onPopUpEscDown); //Удаляем не нужные обработчики событий в модальном окне
+  removeEventListener('keydown', onPopUpEscDown); //Удаляем не нужные обработчики событий в модальном окне
   closeButton.
-    removeEventListener('click', onCloseButtonClick);
+  removeEventListener('click', onCloseButtonClick);
   closeButton.
-    removeEventListener('keydown', onCloseButtonEnterDown);
+  removeEventListener('keydown', onCloseButtonEnterDown);
   hashtags.
-    removeEventListener('keydown', onHashtagsEscDown);
+  removeEventListener('keydown', onHashtagsEscDown);
   description.
-    removeEventListener('keydown', onDescriptionEscDown);
+  removeEventListener('keydown', onDescriptionEscDown);
 }
 
 /**
  * Подключаем валидацию формы
  */
-const initValidation = userForm(form,{
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextTag: 'div',
+const MIN_HASH_LENGTH = 2;
+const MAX_HASH_LENGTH = 20;
+const MAX_HASHTAGS = 5;
+
+const initValidation = userForm(form, {
+  classTo: 'img-upload__element',
+  errorTextParent: 'img-upload__element',
   errorTextClass: 'img-upload__text--error'
 }); //подключение валидации к форме
 
@@ -106,12 +113,34 @@ const validator = initValidation();
 let errorMessage = '';
 
 function validateHachTags(value) {
-  const tags = value.split(' ');
-  if(!isHashTags(tags)) {
-    errorMessage = 'Должен начинаться на # и состоять не более, чем из 20 букв и цифр!';
+  const tags = value.trim().split(' ');
+
+  if (!isFirstSymbol(tags, '#')) {
+    errorMessage = 'Должен начинаться на #!';
     return false;
   }
-  if(tags.length > 5) {
+
+  if (!isLengthLess(tags, MIN_HASH_LENGTH)) {
+    errorMessage = `Не менее ${MIN_HASH_LENGTH} символов включая #!`;
+    return false;
+  }
+
+  if (isLengthMore(tags, MAX_HASH_LENGTH)) {
+    errorMessage = `Не более ${MAX_HASH_LENGTH} символов включая #!`;
+    return false;
+  }
+
+  if (!hasUniqueTags(tags)) {
+    errorMessage = 'Не должны повторяться!';
+    return false;
+  }
+
+  if (!isHashTags(tags)) {
+    errorMessage = 'Только буквы и цифры!';
+    return false;
+  }
+
+  if (tags.length > MAX_HASHTAGS) {
     errorMessage = 'Разрешено не более 5 хэштегов!';
     return false;
   }
