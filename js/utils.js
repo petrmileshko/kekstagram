@@ -29,10 +29,23 @@ function isEnter(key) {
   return key === 'Enter';
 }
 
+function isHashTags(tagsArray) {
+  const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+  let isCorrect = true;
+  tagsArray.forEach((tag) => {
+    if (!re.test(tag)) {
+      isCorrect = false;
+    }
+  });
+
+  return isCorrect;
+}
+
 export {
   getRandomNumber,
   validateTextLength,
   getRandomElement,
   isEscape,
-  isEnter
+  isEnter,
+  isHashTags
 };
