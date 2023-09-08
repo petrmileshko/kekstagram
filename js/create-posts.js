@@ -5,6 +5,9 @@ import {
 /*
 	Генерация данных для задания
 */
+
+const MAX_COMMENTS = 15;
+
 const NAMES = [
   'Василий',
   'Иван',
@@ -49,7 +52,7 @@ const createPost = (index) => ({
   description: getRandomElement(descriptions),
   likes: getRandomNumber(15, 200),
   comments: Array.from({
-    length: getRandomNumber(0, 6)
+    length: getRandomNumber(0, MAX_COMMENTS)
   }, (_, commentIndex) => getComment(commentIndex + 1))
 });
 
