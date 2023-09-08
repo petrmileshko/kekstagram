@@ -133,5 +133,5 @@ function validateDescription(value) {
 
 validator.addValidator(description, validateDescription, 'Длина описания не больше 140 символов');
 
-//Открытие окна с формой загрузки
+//Открытие окна с формой загрузки по событию изменения в поле ввода для выбора файла
 uploadElement.addEventListener('change', onUploadFileClick); //На поле загрузки файла вешаем обработчик события выбора файла

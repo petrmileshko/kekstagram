@@ -3,6 +3,9 @@ import {
   isEnter
 } from './utils.js'; // Один параметр с кодом клавиши из свойтсва объекта Event.key
 
+/**
+ * Формирование окна для просмотра отдельного поста
+ */
 const modal = document.querySelector('.big-picture');
 const closeButton = modal.querySelector('#picture-cancel');
 
@@ -28,11 +31,12 @@ function showModal({
   comments
 }) {
   let commentHTML = '';
+  //вставляем данные из объекта в разметку окна
   modal.querySelector('.big-picture__img>img').src = url;
   modal.querySelector('.social__caption').textContent = description;
   modal.querySelector('.likes-count').textContent = likes;
   modal.querySelector('.comments-count').textContent = comments.length;
-  comments.forEach(({
+  comments.forEach(({   // формируем комментарии к посту
     avatar,
     message,
     name
@@ -48,15 +52,16 @@ function showModal({
 </li>`;
     commentHTML = commentHTML + html;
   });
-  modal.querySelector('.social__comments').innerHTML = (commentHTML !== '') ? commentHTML : '';
+  modal.querySelector('.social__comments').innerHTML = (commentHTML !== '') ? commentHTML : ''; // вставляем в разметку комментарии
   modal.classList.remove('hidden');
   modal.querySelector('.social__comment-count').classList.add('hidden');
   document.body.classList.add('modal-open');
-  if (!modal.classList.contains('hidden')) {
+  if (!modal.classList.contains('hidden')) {    // добавляем обработчики событий закрытия окна только после того как окно просмотра открыто
     addHandlersClose();
   }
 }
 
+// Добавление обработчиков событий
 function addHandlerOpen(picture, element) {
   picture.addEventListener('click', (e) => {
     e.preventDefault();
@@ -70,12 +75,14 @@ function addHandlersClose() {
   document.addEventListener('keydown', onPopUpEscDown);
 }
 
+// Удаление обработчиков событий
 function removeHandlersClose() {
   closeButton.removeEventListener('click', onCloseButtonClick);
   closeButton.removeEventListener('keydown', onCloseButtonEnterDown);
   document.removeEventListener('keydown', onPopUpEscDown);
 }
 
+// Callback функции событий
 function onCloseButtonClick(e) {
   e.preventDefault();
   closeModal();
@@ -95,6 +102,7 @@ function onCloseButtonEnterDown(e) {
   }
 }
 
+// Интерфейс для открытия окна просмотра поста
 const openPicture = ({
   links,
   elements

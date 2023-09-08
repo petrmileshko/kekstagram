@@ -17,47 +17,49 @@ function validateTextLength(text, max) {
   return text.length <= max;
 }
 
+//Получить случайный элемент из массива
 function getRandomElement(elements) {
   return elements[getRandomNumber(0, elements.length - 1)];
 }
 
+//Проверка кода клавиши escape
 function isEscape(key) {
   return key === 'Escape';
 }
 
+//Проверка кода клавиши enter
 function isEnter(key) {
   return key === 'Enter';
 }
 
+//Проверка массива с хештегами на соответсвие используемых символов
 function isHashTags(tagsArray) {
-  //const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;/[^a-zA-Z0-9а-яА-ЯёЁ]/
   const re = /[^a-zA-Z0-9а-яА-ЯёЁ]/g;
-  let isCorrect = true;
-  tagsArray.forEach((tag) => {
-    if (re.test(tag.slice(1))) {
-      isCorrect = false;
-    }
-  });
-  return isCorrect;
+  return !tagsArray.some((tag)=>re.test(tag.slice(1)));
 }
 
+//Проверка массива с хештегами на уникальность
 function hasUniqueTags(tags) {
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 }
 
+//Проверка хештега на наличие символа # в начале
 function isFirstSymbol(tags, symbol) {
   return tags.every((tag) => String(tag)[0] === symbol);
 }
 
+//Проверка хештега на минимальную длину
 function isLengthLess(tags, length) {
   return tags.every((tag) => tag.length >= length);
 }
 
+//Проверка хештега на максимальную длину
 function isLengthMore(tags, length) {
   return tags.some((tag) => tag.length > length);
 }
 
+//Проверка элементов формы на состояние в фокусе
 function isElemetsFocused(elements) {
   return elements.some((element) => element === document.activeElement);
 }

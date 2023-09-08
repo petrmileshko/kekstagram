@@ -1,3 +1,6 @@
+/**
+ * Подключение Pristine и обработка отправки данных
+ */
 function addSubmitHandler(form, validator) {
 
   form.addEventListener('submit', (evt) => {
@@ -20,6 +23,7 @@ function userForm(form, args, onInput = true) {
   };
 }
 
+// Интерфейс для отправки данных и получения ссылки на валидатор Pristine
 export {
   userForm
 };

@@ -34,6 +34,7 @@ const descriptions = [
   'Норм',
 ];
 
+//Генерация комментария
 const getComment = (index) => ({
   id: index,
   avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
@@ -41,6 +42,7 @@ const getComment = (index) => ({
   name: getRandomElement(NAMES)
 });
 
+//Генерация поста с картинкой
 const createPost = (index) => ({
   id: index,
   url: `photos/${index}.jpg`,
@@ -51,6 +53,7 @@ const createPost = (index) => ({
   }, (_, commentIndex) => getComment(commentIndex + 1))
 });
 
+//Интерфейс для генерация постов с картинками с заданым в параметре количеством
 const createPosts = (numberPosts) => Array.from({length: numberPosts}, (_, indexPost) => createPost(indexPost + 1));
 
 export {
