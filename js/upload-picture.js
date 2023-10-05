@@ -7,7 +7,7 @@ import {
   isLengthLess,
   isLengthMore,
   isElemetsFocused
-} from './utils.js'; // Один параметр с кодом клавиши из свойства объекта Event.key
+} from './utils.js'; // Утилиты
 
 import {
   userForm
