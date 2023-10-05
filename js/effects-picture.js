@@ -73,6 +73,7 @@ function effectsPicture({
       );
       container.addEventListener('change', onChangeEffect);
       slider.noUiSlider.on('update', onSliderUpdate);
+      updateSlider();
     },
     reset: function () {
       container.removeEventListener('click', onChangeEffect);
