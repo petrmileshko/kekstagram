@@ -11,7 +11,7 @@ import {
 
 import {
   userForm
-} from './user-form.js'; // Один параметр - ссылка на форму
+} from './user-form.js'; // Первый параметр форма, второй параметры для валидатора
 
 const modal = document.querySelector('.img-upload__overlay');
 const closeButton = modal.querySelector('#upload-cancel');
