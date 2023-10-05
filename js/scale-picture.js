@@ -13,6 +13,7 @@ function scalePicture({
   output,
   image
 }) {
+  imageScale();
 
   return {
     init: function () {
@@ -22,7 +23,7 @@ function scalePicture({
     reset: function () {
       decreaseButton.removeEventListener('click', onDecreaseClick);
       increaseButton.removeEventListener('click', onIncreaseClick);
-      output.value = imageScale();
+      imageScale();
     }
   };
 
