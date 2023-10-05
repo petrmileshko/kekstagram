@@ -17,6 +17,10 @@ import {
   scalePicture
 } from './scale-picture.js'; // масштабирование
 
+import {
+  effectsPicture
+} from './effects-picture.js'; // масштабирование
+
 const modal = document.querySelector('.img-upload__overlay');
 const closeButton = modal.querySelector('#upload-cancel');
 const uploadElement = document.querySelector('#upload-file');
@@ -27,12 +31,26 @@ const smallerScale = document.querySelector('.scale__control--smaller');
 const biggerScale = document.querySelector('.scale__control--bigger');
 const outputScale = document.querySelector('.scale__control--value');
 const picture = document.querySelector('.img-upload__preview img');
+const sliderEffect = document.querySelector('.effect-level__slider');
+const outputEffect = document.querySelector('.effect-level__value');
 
+/**
+ *  Подключение радактирования картинки
+ */
 
+// Инициализация масштабирования
 const scaleUnit = scalePicture({
   decreaseButton: smallerScale,
   increaseButton: biggerScale,
   output: outputScale,
+  image: picture
+});
+
+// Инициализация наложения эффектов
+const effectsUnit = effectsPicture({
+  container: form,
+  slider: sliderEffect,
+  output: outputEffect,
   image: picture
 });
 
@@ -86,6 +104,7 @@ function openModal() {
   closeButton.addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
   closeButton.addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
   scaleUnit.init(); //Инициализируем обработчики для масштабирования
+  effectsUnit.init(); // Инициализация наложения эффектов
 }
 
 //Функция для закрытия модального окна
@@ -98,6 +117,7 @@ function closeModal() {
   closeButton.removeEventListener('click', onCloseButtonClick);
   closeButton.removeEventListener('keydown', onCloseButtonEnterDown);
   scaleUnit.reset(); //Обнуляем масштабирование
+  effectsUnit.reset(); // Обнуляем наложение эффектов
 }
 
 //Валидация хэштегов
