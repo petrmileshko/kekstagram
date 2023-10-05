@@ -13,12 +13,28 @@ import {
   userForm
 } from './user-form.js'; // Первый параметр форма, второй параметры для валидатора
 
+import {
+  scalePicture
+} from './scale-picture.js'; // масштабирование
+
 const modal = document.querySelector('.img-upload__overlay');
 const closeButton = modal.querySelector('#upload-cancel');
 const uploadElement = document.querySelector('#upload-file');
 const hashtags = document.querySelector('[name="hashtags"]');
 const description = document.querySelector('[name="description"]');
 const form = document.querySelector('#upload-select-image');
+const smallerScale = document.querySelector('.scale__control--smaller');
+const biggerScale = document.querySelector('.scale__control--bigger');
+const outputScale = document.querySelector('.scale__control--value');
+const picture = document.querySelector('.img-upload__preview img');
+
+
+const scaleUnit = scalePicture({
+  decreaseButton: smallerScale,
+  increaseButton: biggerScale,
+  output: outputScale,
+  image: picture
+});
 
 /**
  * Подключаем валидацию формы
@@ -69,6 +85,7 @@ function openModal() {
   document.addEventListener('keydown', onPopUpEscDown); //Добавляем на страницу обработчик нажатия клавиши Esc по которому будет закрываться модальное окно
   closeButton.addEventListener('click', onCloseButtonClick); //Добавляем на кнопку с крестиком обработчик клика мышки, для закрытия модального окна с формой
   closeButton.addEventListener('keydown', onCloseButtonEnterDown); //Добавляем на кнопку с крестиком обработчик нажатия клавиши Enter, для закрытия модального окна с формой
+  scaleUnit.init(); //Инициализируем обработчики для масштабирования
 }
 
 //Функция для закрытия модального окна
@@ -80,6 +97,7 @@ function closeModal() {
   document.removeEventListener('keydown', onPopUpEscDown); //Удаляем не нужные обработчики событий в модальном окне
   closeButton.removeEventListener('click', onCloseButtonClick);
   closeButton.removeEventListener('keydown', onCloseButtonEnterDown);
+  scaleUnit.reset(); //Обнуляем масштабирование
 }
 
 //Валидация хэштегов
