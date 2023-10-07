@@ -1,3 +1,20 @@
-GET https://кравцев.рф HTTP/1.1
+HEAD https://pyzhova.com HTTP/1.1
 User-Agent: "Mozilla/5.0"
 
+###
+
+GET /posts HTTP/1.1
+Host: jsonplaceholder.typicode.com
+
+
+###
+POST /posts HTTP/1.1
+Host: jsonplaceholder.typicode.com
+Content-Type: application/json
+Content-Length: 88
+
+{
+    "title": "Новая публикация",
+    "body": "Текст публикации",
+    "userId": 31337
+}
