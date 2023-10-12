@@ -26,24 +26,23 @@ function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
         onFailApi(error);
       }
     },
-    insert: async function (body = null, endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
+    insert: async function (data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {
       try {
 
-        if (body === null) {
+        if (data === null) {
           throw new Error('Нет данных для передачи на сервер');
         }
 
         const responce = await fetch(endPoint, {
-          Method: 'POST',
-          body
+          method: 'POST',
+          body: data
         });
 
         if (!responce.ok) {
           throw new Error(`Ошибка отправки: ${responce.status} - ${responce.statusText}`);
         }
 
-        const data = await responce.json();
-        onSucssesInsert(data);
+        onSucssesInsert('Данные отправлены');
 
       } catch (error) {
         onFailApi(error);
