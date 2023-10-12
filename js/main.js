@@ -18,6 +18,3 @@ dataExchange.select()
   .then((data) => openPicture(data))
   .catch((err)=> console.error('Запрос не выполнен -',err));
 
-//const getAllPictures = renderPictures(25);
-//print(picturesAll);
-//openPicture(dataExchange.getData());
