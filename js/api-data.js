@@ -3,8 +3,8 @@
  */
 
 
-function apiData(onSucssesApi, onFailApi, body = null) {
-  let dataRaw;
+function apiData(onSucssesSelect, onSucssesInsert, onFailApi, body = null) {
+
   return {
 
     select: async function (endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
@@ -16,8 +16,7 @@ function apiData(onSucssesApi, onFailApi, body = null) {
         }
 
         const data = await responce.json();
-        dataRaw = onSucssesApi[0](data);
-        return dataRaw;
+        onSucssesSelect[1](onSucssesSelect[0](data));
 
       } catch (error) {
         onFailApi(error);
@@ -40,7 +39,7 @@ function apiData(onSucssesApi, onFailApi, body = null) {
         }
 
         const data = await responce.json();
-        onSucssesApi[1](data);
+        onSucssesInsert(data);
 
       } catch (error) {
         onFailApi(error);

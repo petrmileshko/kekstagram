@@ -9,12 +9,7 @@ import {
   apiData
 } from './api-data.js'; // Получение / отправка данных
 
-function print(...params) {
-  console.log(params);
-}
-const dataExchange = apiData([renderPictures, print], console.error, null);
 
-dataExchange.select()
-  .then((data) => openPicture(data))
-  .catch((err)=> console.error('Запрос не выполнен -',err));
+const dataExchange = apiData([renderPictures, openPicture], console.log, console.error, null);
 
+dataExchange.select();
