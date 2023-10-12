@@ -10,6 +10,6 @@ import {
 } from './api-data.js'; // Получение / отправка данных (первый аргумент массив из двух элементов, первый интерфейс отрисовки превью постов на главной, второй элемент интерфейс вывода поста в модальное окно)
 
 
-const dataExchange = apiData([renderPictures, openPicture], console.log, console.error, null);
+const dataExchange = apiData([renderPictures, openPicture], console.log, console.error);
 
 dataExchange.select();

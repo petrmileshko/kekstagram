@@ -3,7 +3,7 @@
  */
 
 
-function apiData(onSucssesSelect, onSucssesInsert, onFailApi, body = null) {
+function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
 
   return {
 
@@ -22,7 +22,7 @@ function apiData(onSucssesSelect, onSucssesInsert, onFailApi, body = null) {
         onFailApi(error);
       }
     },
-    insert: async function (endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
+    insert: async function (body = null, endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
       try {
 
         if (body === null) {
