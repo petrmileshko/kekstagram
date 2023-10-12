@@ -1,7 +1,9 @@
 /**
  * Получение / отправка данных на сервер
+ * onSucssesSelect = [ 'функция для обработки данных', 'функция для вывода на экран результата обработки']
+ * onSucssesInsert - Функция для обработки успешного завершения отправки данных на сервер
+ * onFailApi - Обработка ошибки (чтения/запись данных) и вывод сообщения
  */
-
 
 function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
 
@@ -16,7 +18,9 @@ function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
         }
 
         const data = await responce.json();
-        onSucssesSelect[1](onSucssesSelect[0](data));
+        onSucssesSelect[1](
+          onSucssesSelect[0](data)    //Передаем массив с данными, получаем объект с шаблоном и данными для вывода на экран
+        );                            // После объект передаем в интерфейс для вывода на экран
 
       } catch (error) {
         onFailApi(error);
