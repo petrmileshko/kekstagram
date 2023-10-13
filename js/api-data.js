@@ -14,16 +14,21 @@ function apiData(onSucssesSelect, onFailSelect) {
         const responce = await fetch(endPoint);
 
         if (!responce.ok) {
-          throw new Error(`Ошибка загрузки: ${responce.status} - ${responce.statusText}`);
+          throw new Error(`Ошибка загрузки данных с сервера: ${responce.status} - ${responce.statusText}`);
         }
 
         const data = await responce.json();
+
+        if ( data === null || data === undefined ) {
+          throw new Error('Данные с сервера загружены с ошибкой!');
+        }
+
         onSucssesSelect[1](
           onSucssesSelect[0](data) //Передаем массив с данными для вывода на страницу, получаем объект с шаблоном ссылок и данными
         ); // Передаем объект для инициализации событий по клику на пост для последующего его октрытия в модальном окне
 
       } catch (error) {
-        onFailSelect(error);
+        onFailSelect(error.message);
       }
     },
     insert: async function (onSubmitEvent, data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {

@@ -10,9 +10,11 @@ import {
 import {
   apiData
 } from './api-data.js'; // Получение / отправка данных первый аргумент массив из двух элементов= [интерфейс отрисовки превью постов на главной, интерфейс вывода поста в модальное окно], второй аргумент функция для вывода сообщения об ошибке
+import {
+  readDataFail
+} from './messages.js'; // Формирование сообщений
 
-
-const dataExchange = apiData([renderPictures, openPicture], console.error); // Инициализация интерфейса для работы с данными постов
+const dataExchange = apiData([renderPictures, openPicture], readDataFail); // Инициализация интерфейса для работы с данными постов
 
 dataExchange.select(); // Загрузка постов с сервера, отрисовка на странице и инициализация просмотра поста в модальном окне
 
