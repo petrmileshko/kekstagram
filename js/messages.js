@@ -10,7 +10,16 @@ const readDataFail = (err) => {
   document.body.insertBefore(newError, elementMain);
 };
 
+const sendDataMessage = (status, message) => {
+
+  if (status) {
+    console.log(message);
+  } else {
+    console.error(message);
+  }
+};
 
 export {
-  readDataFail
+  readDataFail,
+  sendDataMessage
 };

@@ -42,7 +42,7 @@ const MIN_HASH_LENGTH = 2;
 const MAX_HASH_LENGTH = 20;
 const MAX_HASHTAGS = 5;
 
-const uploadPicture = (cb) => {
+const uploadPicture = (cb, showMessage) => {
 
   uploadElement.addEventListener('change', onUploadFileClick); //На поле загрузки файла вешаем обработчик события выбора файла
 
@@ -99,10 +99,10 @@ const uploadPicture = (cb) => {
   //Функция для обработки результата событий отправки данных
   function onSubmitEvent(status, message) {
     if (status) {
-      console.log(message);
+      showMessage(true, message);
       closeModal();
     } else {
-      console.error(message);
+      showMessage(false, message);
     }
   }
 
