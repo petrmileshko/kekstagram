@@ -102,7 +102,12 @@ const uploadPicture = (cb, showMessage) => {
       showMessage(true, message);
       closeModal();
     } else {
-      showMessage(false, message);
+      if (message === 'validator') {
+        showMessage(false, message);
+      } else {
+        showMessage(false, message);
+        closeModal();
+      }
     }
   }
 

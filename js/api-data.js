@@ -14,7 +14,7 @@ function apiData(onSucssesSelect, onFailSelect) {
         const responce = await fetch(endPoint);
 
         if (!responce.ok) {
-          throw new Error(`Ошибка загрузки данных с сервера: ${responce.status} - ${responce.statusText}`);
+          throw new Error(`Ошибка загрузки данных с сервера: ${responce.status}`);
         }
 
         const data = await responce.json();
@@ -47,7 +47,7 @@ function apiData(onSucssesSelect, onFailSelect) {
           throw new Error(`Ошибка отправки: ${responce.status} - ${responce.statusText}`);
         }
 
-        onSubmitEvent(true, 'Данные отправлены');
+        onSubmitEvent(true, 'Изображение успешно загружено');
 
       } catch (error) {
         onSubmitEvent(false, error.message);

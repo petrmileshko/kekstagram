@@ -5,15 +5,19 @@ function addSubmitHandler(form, cb, onSubmitEvent, validator) {
 
   form.addEventListener('submit', async (evt) => {
 
+    if(cb === null) {
+      return;
+    }
+
     evt.preventDefault();
 
     const isValid = validator.validate();
-    if (isValid && cb !== null) {
+    if (isValid) {
 
       await cb(onSubmitEvent, new FormData(form));
 
     } else {
-      onSubmitEvent(false, 'Ошибка отправки данных');
+      onSubmitEvent(false, 'validator');
     }
   });
 }
