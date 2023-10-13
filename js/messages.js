@@ -52,8 +52,9 @@ const sendDataMessage = (status, message) => {
     document.body.append(newMessage);
   }
 
-  function onButtonClick() {
+  function onButtonClick(evt) {
     if (newMessage !== null) {
+      evt.preventDefault();
       newMessage.remove();
     }
   }
