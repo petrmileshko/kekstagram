@@ -1,7 +1,7 @@
 /**
  * Подключение Pristine и обработка отправки данных
  */
-function addSubmitHandler(form, cb, validator) {
+function addSubmitHandler(form, cb, onSubmitEvent, validator) {
 
   form.addEventListener('submit', async (evt) => {
 
@@ -10,10 +10,10 @@ function addSubmitHandler(form, cb, validator) {
     const isValid = validator.validate();
     if (isValid && cb !== null) {
 
-      await cb(new FormData(form));
+      await cb(onSubmitEvent, new FormData(form));
 
     } else {
-      console.log('Ошибка отправки данных');
+      onSubmitEvent(false, 'Ошибка отправки данных');
     }
   });
 }
@@ -21,8 +21,8 @@ function addSubmitHandler(form, cb, validator) {
 function userForm(form, args, onInput = true) {
   const validator = new Pristine(form, args, onInput);
 
-  return function (cb = null) {
-    addSubmitHandler(form, cb, validator);
+  return function (cb = null, onSubmitEvent) {
+    addSubmitHandler(form, cb, onSubmitEvent, validator);
     return validator;
   };
 }

@@ -51,7 +51,7 @@ const uploadPicture = (cb) => {
     classTo: 'img-upload__element',
     errorTextParent: 'img-upload__element',
     errorTextClass: 'img-upload__text--error'
-  })(cb);
+  })(cb, onSubmitEvent);
 
   // Инициализация масштабирования
   const scaleUnit = scalePicture({
@@ -93,6 +93,16 @@ const uploadPicture = (cb) => {
     if (isEnter(e.key)) {
       e.preventDefault();
       closeModal();
+    }
+  }
+
+  //Функция для обработки результата событий отправки данных
+  function onSubmitEvent(status, message) {
+    if (status) {
+      console.log(message);
+      closeModal();
+    } else {
+      console.error(message);
     }
   }
 

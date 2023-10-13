@@ -5,7 +5,7 @@
  * onFailApi - Обработка ошибки (чтения/запись данных) и вывод сообщения
  */
 
-function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
+function apiData(onSucssesSelect, onFailSelect) {
 
   return {
 
@@ -19,14 +19,14 @@ function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
 
         const data = await responce.json();
         onSucssesSelect[1](
-          onSucssesSelect[0](data)    //Передаем массив с данными для вывода на страницу, получаем объект с шаблоном ссылок и данными
-        );                            // Передаем объект для инициализации событий по клику на пост для последующего его октрытия в модальном окне
+          onSucssesSelect[0](data) //Передаем массив с данными для вывода на страницу, получаем объект с шаблоном ссылок и данными
+        ); // Передаем объект для инициализации событий по клику на пост для последующего его октрытия в модальном окне
 
       } catch (error) {
-        onFailApi(error);
+        onFailSelect(error);
       }
     },
-    insert: async function (data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {
+    insert: async function (onSubmitEvent, data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {
       try {
 
         if (data === null) {
@@ -42,10 +42,10 @@ function apiData(onSucssesSelect, onSucssesInsert, onFailApi) {
           throw new Error(`Ошибка отправки: ${responce.status} - ${responce.statusText}`);
         }
 
-        onSucssesInsert('Данные отправлены');
+        onSubmitEvent(true, 'Данные отправлены');
 
       } catch (error) {
-        onFailApi(error);
+        onSubmitEvent(false, error);
       }
     }
   };

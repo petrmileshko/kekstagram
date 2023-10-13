@@ -23,7 +23,7 @@ const renderPictures = (picturesAll) => {
 
   picturesContainer.append(templateContainer); // вставляем полученные DOM узлы из временного хранилище в DOM струтуру документа
 
-  return { // возвращаем функцию интерфес для получния объекта с данными и элементами разметки
+  return { // возвращаем объект с данными и элементами разметки для последующей обработки в модальном окне
     links: picturesContainer.querySelectorAll('a.picture'),
     elements: picturesAll
   };
