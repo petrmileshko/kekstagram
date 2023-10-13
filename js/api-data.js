@@ -50,7 +50,7 @@ function apiData(onSucssesSelect, onFailSelect) {
         onSubmitEvent(true, 'Данные отправлены');
 
       } catch (error) {
-        onSubmitEvent(false, error);
+        onSubmitEvent(false, error.message);
       }
     }
   };
