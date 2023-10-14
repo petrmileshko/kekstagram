@@ -5,7 +5,6 @@
 const renderPictures = (picturesAll) => {
 
   const picturesContainer = document.querySelector('.pictures');
-  //const picturesAll = createPosts(numberPictures);                                                  // генерируем объекты данных
   const templatePictureItem = document.querySelector('#picture').content.querySelector('.picture'); // считываем из шаблона структуру DOM контейнера
   const templateContainer = document.createDocumentFragment(); // создаем веременное хранилище DOM элементов
 
