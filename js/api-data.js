@@ -5,7 +5,7 @@
  * onFailApi - Обработка ошибки (чтения/запись данных) и вывод сообщения
  */
 
-function apiData(onSucssesSelect, onFailSelect) {
+function apiData(onSuccesReading, onFailSelect) {
 
   return {
 
@@ -19,13 +19,11 @@ function apiData(onSucssesSelect, onFailSelect) {
 
         const data = await responce.json();
 
-        if ( data === null || data === undefined ) {
+        if (data === null || data === undefined) {
           throw new Error('Данные с сервера загружены с ошибкой!');
         }
 
-        onSucssesSelect[1](
-          onSucssesSelect[0](data) //Передаем массив с данными для вывода на страницу, получаем объект с шаблоном ссылок и данными
-        ); // Передаем объект для инициализации событий по клику на пост для последующего его октрытия в модальном окне
+        onSuccesReading(data);
 
       } catch (error) {
         onFailSelect(error.message);

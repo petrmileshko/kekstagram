@@ -14,8 +14,15 @@ import {
   readDataFail,
   sendDataMessage
 } from './messages.js'; // Формирование сообщений
+import {
+  filters
+} from './filters.js';
 
-const dataExchange = apiData([renderPictures, openPicture], readDataFail); // Инициализация интерфейса для работы с данными постов / передаем интерфейс в виде массива с функциями для отрисовки постов и функцию вывода сообщений об ошибке
+const dataExchange = apiData(
+  (data) => {
+    filters(data, renderPictures, openPicture);
+  },
+  readDataFail); // Инициализация интерфейса для работы с данными постов / передаем интерфейс в виде массива с функциями для отрисовки постов и функцию вывода сообщений об ошибке
 
 dataExchange.select(); // Загрузка постов с сервера, отрисовка на странице и инициализация просмотра поста в модальном окне
 
