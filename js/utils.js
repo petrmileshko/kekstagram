@@ -64,6 +64,14 @@ function isElemetsFocused(elements) {
   return elements.some((element) => element === document.activeElement);
 }
 
+//Устранение эффекта дребезжания и мигания
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
 
 export {
   getRandomNumber,
@@ -76,5 +84,6 @@ export {
   isFirstSymbol,
   isLengthLess,
   isLengthMore,
-  isElemetsFocused
+  isElemetsFocused,
+  debounce
 };
