@@ -53,14 +53,14 @@ const sendDataMessage = (status, message) => {
   }
 
   function onButtonClick(evt) {
+    evt.preventDefault();
     if (newMessage !== null) {
-      evt.preventDefault();
       newMessage.remove();
     }
   }
 
-  function onPopUpEscDown() {
-    if (newMessage !== null) {
+  function onPopUpEscDown(evt) {
+    if (newMessage !== null && evt.key === 'Escape') {
       newMessage.remove();
     }
   }
