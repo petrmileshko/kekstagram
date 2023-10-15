@@ -5,55 +5,55 @@
  * onFailApi - Обработка ошибки (чтения/запись данных) и вывод сообщения
  */
 
-function apiData(onSuccesReading, onFailSelect) {
+const ApiData = function (onSuccesReading, onFailSelect) {
 
-  return {
 
-    select: async function (endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
-      try {
-        const responce = await fetch(endPoint);
+  this.select = async function (endPoint = 'https://25.javascript.pages.academy/kekstagram/data') {
+    try {
+      const responce = await fetch(endPoint);
 
-        if (!responce.ok) {
-          throw new Error(`Ошибка загрузки данных с сервера: ${responce.status}`);
-        }
-
-        const data = await responce.json();
-
-        if (data === null || data === undefined) {
-          throw new Error('Данные с сервера загружены с ошибкой!');
-        }
-
-        onSuccesReading(data);
-
-      } catch (error) {
-        onFailSelect(error.message);
+      if (!responce.ok) {
+        throw new Error(`Ошибка загрузки данных с сервера: ${responce.status}`);
       }
-    },
-    insert: async function (onSubmitEvent, data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {
-      try {
 
-        if (data === null) {
-          throw new Error('Нет данных для передачи на сервер');
-        }
+      const data = await responce.json();
 
-        const responce = await fetch(endPoint, {
-          method: 'POST',
-          body: data
-        });
-
-        if (!responce.ok) {
-          throw new Error(`Ошибка отправки: ${responce.status} - ${responce.statusText}`);
-        }
-
-        onSubmitEvent(true, 'Изображение успешно загружено');
-
-      } catch (error) {
-        onSubmitEvent(false, error.message);
+      if (data === null || data === undefined) {
+        throw new Error('Данные с сервера загружены с ошибкой!');
       }
+
+      onSuccesReading(data);
+
+    } catch (error) {
+      onFailSelect(error.message);
     }
   };
-}
+
+  this.insert = async function (onSubmitEvent, data = null, endPoint = 'https://25.javascript.pages.academy/kekstagram') {
+    try {
+
+      if (data === null) {
+        throw new Error('Нет данных для передачи на сервер');
+      }
+
+      const responce = await fetch(endPoint, {
+        method: 'POST',
+        body: data
+      });
+
+      if (!responce.ok) {
+        throw new Error(`Ошибка отправки: ${responce.status} - ${responce.statusText}`);
+      }
+
+      onSubmitEvent(true, 'Изображение успешно загружено');
+
+    } catch (error) {
+      onSubmitEvent(false, error.message);
+    }
+  };
+
+};
 
 export {
-  apiData
+  ApiData
 };
