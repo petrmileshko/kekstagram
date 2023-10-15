@@ -10,7 +10,8 @@ import {
   isFirstSymbol,
   isLengthLess,
   isLengthMore,
-  isElemetsFocused
+  isElemetsFocused,
+  isFileType
 } from './utils.js'; // Утилиты
 
 import {
@@ -37,10 +38,13 @@ const outputScale = document.querySelector('.scale__control--value');
 const picture = document.querySelector('.img-upload__preview img');
 const sliderEffect = document.querySelector('.effect-level__slider');
 const outputEffect = document.querySelector('.effect-level__value');
+const picturePreview = document.querySelector('.img-upload__preview img');
+const pictureEffects = document.querySelectorAll('.effects__preview');
 
 const MIN_HASH_LENGTH = 2;
 const MAX_HASH_LENGTH = 20;
 const MAX_HASHTAGS = 5;
+const FILE_TYPES = ['.jpg', '.png', '.jpeg'];
 
 const uploadPicture = (cb, showMessage) => {
 
@@ -74,7 +78,18 @@ const uploadPicture = (cb, showMessage) => {
    */
   function onUploadFileClick(e) {
     e.preventDefault();
-    openModal();
+    const file = this.files[0];
+
+    if (file && isFileType(file.name, FILE_TYPES)) {
+      picturePreview.src = URL.createObjectURL(file);
+      pictureEffects.forEach((preview) => {
+        preview.style.backgroundImage = `url(${picturePreview.src})`;
+      });
+      openModal();
+    } else {
+      showMessage(false, 'format');
+      form.reset(); //Обнуляем поле выбора файла
+    }
   }
 
   function onCloseButtonClick(e) {

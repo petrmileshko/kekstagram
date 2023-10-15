@@ -35,7 +35,7 @@ function isEnter(key) {
 //Проверка массива с хештегами на соответсвие используемых символов
 function isHashTags(tagsArray) {
   const re = /[^a-zA-Z0-9а-яА-ЯёЁ]/g;
-  return !tagsArray.some((tag)=>re.test(tag.slice(1)));
+  return !tagsArray.some((tag) => re.test(tag.slice(1)));
 }
 
 //Проверка массива с хештегами на уникальность
@@ -64,6 +64,11 @@ function isElemetsFocused(elements) {
   return elements.some((element) => element === document.activeElement);
 }
 
+//Проверка типа файла
+function isFileType(fileName, types) {
+  return types.some((type) => fileName.endsWith(type));
+}
+
 //Устранение эффекта дребезжания и мигания
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
@@ -85,5 +90,6 @@ export {
   isLengthLess,
   isLengthMore,
   isElemetsFocused,
-  debounce
+  debounce,
+  isFileType
 };
