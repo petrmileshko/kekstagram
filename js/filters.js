@@ -23,13 +23,15 @@ function filters(data, cbPictures, cbPictureModal) {
     elements: loadedPictures
   });
 
-  function render(cbFilter = null) {
+  function render(cbFilter = null, numberOfPictures = null) {
     clearData();
+
     if (cbFilter) {
-      pictureLinks = cbPictures(loadedPictures.slice().sort(cbFilter)).links;
+      const sortedPictures = (numberOfPictures !== null) ? loadedPictures.slice().sort(cbFilter).slice(0, numberOfPictures) : loadedPictures.slice().sort(cbFilter);
+      pictureLinks = cbPictures(sortedPictures).links;
       cbPictureModal({
         links: pictureLinks,
-        elements: loadedPictures
+        elements: sortedPictures
       });
     } else {
       pictureLinks = cbPictures(loadedPictures).links;
@@ -52,7 +54,7 @@ function filters(data, cbPictures, cbPictureModal) {
   function switchFilter(filter) {
     switch (filter) {
       case 'filter-random':
-        cbDebounce(randomFilter);
+        cbDebounce(randomFilter, 10);
         break;
       case 'filter-discussed':
         cbDebounce(popularFilter);
